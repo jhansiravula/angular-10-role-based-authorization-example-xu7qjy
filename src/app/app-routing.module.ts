@@ -6,6 +6,7 @@ import { AdminComponent } from './admin';
 import { LoginComponent } from './login';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
+import { NgxPermissionsGuard } from 'ngx-permissions';
 
 const routes: Routes = [
   {
@@ -16,8 +17,18 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin,] },
+    canActivate: [NgxPermissionsGuard],
+    data: {
+      permissions: {
+        only: [Role.Admin],
+        redirectTo: {
+          navigationCommands: ['**'],
+          navigationExtras: {
+            skipLocationChange: true,
+          },
+        },
+      },
+    },
   },
   {
     path: 'login',
