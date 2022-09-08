@@ -16,11 +16,10 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminComponent,
     canActivate: [NgxPermissionsGuard],
     data: {
       permissions: {
-        only: [Role.Admin],
+        only: [Role.Admin, Role.Editor],
         redirectTo: {
           navigationCommands: ['**'],
           navigationExtras: {
@@ -29,6 +28,7 @@ const routes: Routes = [
         },
       },
     },
+    component: AdminComponent,
   },
   {
     path: 'login',
